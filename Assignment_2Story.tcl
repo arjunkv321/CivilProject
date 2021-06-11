@@ -240,6 +240,8 @@
 	mass 2205 $NodalMass2 $Negligible $Negligible;	# Pier 2, Floor 2
 	mass 1305 $NodalMass3 $Negligible $Negligible;	# Pier 1, Floor 3
 	mass 2305 $NodalMass3 $Negligible $Negligible;	# Pier 2, Floor 3
+	mass 1405 $NodalMass4 $Negligible $Negligible;	# Pier 1, Floor 4
+	mass 2405 $NodalMass4 $Negligible $Negligible;	# Pier 2, Floor 4
 
 # constrain beam-column joints in a floor to have the same lateral displacement using the "equalDOF" command
 	# command: equalDOF $MasterNodeID $SlaveNodeID $dof1 $dof2...
@@ -248,6 +250,8 @@
 	equalDOF 1205 32 $dof1;		# Floor 2:  Pier 1 to Pier 3
 	equalDOF 1305 2305 $dof1;	# Floor 3:  Pier 1 to Pier 2
 	equalDOF 1305 33 $dof1;		# Floor 3:  Pier 1 to Pier 3
+	equalDOF 1405 2405 $dof1;	# Floor 4:  Pier 1 to Pier 2
+	equalDOF 1405 34 $dof1;		# Floor 4:  Pier 1 to Pier 3
 
 # assign boundary condidtions 
 	# command:  fix nodeID dxFixity dyFixity rzFixity
@@ -264,7 +268,7 @@
 	set Es 29000.0;			# steel Young's modulus
 	set Fy 50.0;			# steel yield strength
 
-# define column section W24x131 for Story 1 & 2
+# define column section W24x131 for Story 1,2 & 3
 	set Acol_12  38.5;		# cross-sectional area
 	set Icol_12  4020.0;	# moment of inertia
 	set Mycol_12 20350.0;	# yield moment at plastic hinge location (i.e., My of RBS section)
@@ -273,7 +277,7 @@
 	set tfcol_12 0.96;		# flange thickness
 	set twcol_12 0.605;		# web thickness
 
-# define beam section W27x102 for Floor 2 & 3
+# define beam section W27x102 for Floor 2,3 & 4
 	set Abeam_23  30.0;		# cross-sectional area (full section properties)
 	set Ibeam_23  3620.0;	# moment of inertia  (full section properties)
 	set Mybeam_23 10938.0;	# yield moment at plastic hinge location (i.e., My of RBS section)
