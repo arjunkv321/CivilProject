@@ -65,6 +65,7 @@
 	set Floor1 0.0;		# ground floor
 	set Floor2 [expr $Floor1 + $HStory1];
 	set Floor3 [expr $Floor2 + $HStoryTyp];
+	set Floor4 [expr $Floor3 + $HStoryTyp];
 	
 # calculate panel zone dimensions
 	set pzlat23  [expr 24.5/2.0];	# lateral dist from CL of beam-col joint to edge of panel zone (= half the column depth)
