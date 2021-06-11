@@ -422,11 +422,11 @@
 	rotSpring2DModIKModel 3222 236 235 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	
 	# col springs @ bottom of Story 3 (above Floor 3)
-	rotSpring2DModIKModel 3131 137 138 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
-	rotSpring2DModIKModel 3231 237 238 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3131 137 138 $Ks_col_3 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3231 237 238 $Ks_col_3 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	#col springs @ top of Story 3 (below Floor 4)
-	rotSpring2DModIKModel 3132 146 145 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
-	rotSpring2DModIKModel 3232 246 245 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3132 146 145 $Ks_col_3 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3232 246 245 $Ks_col_3 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	
 	# create region for frame column springs
 	# command: region $regionID -ele $ele_1_ID $ele_2_ID...
@@ -596,14 +596,16 @@
 if {$analysisType == "pushover"} { 
 	puts "Running Pushover..."
 # assign lateral loads and create load pattern:  use ASCE 7-10 distribution
-	set lat2 16.255;	# force on each beam-column joint in Floor 2
-	set lat3 31.636;	# force on each beam-column joint in Floor 3
-						# force on each beam-column joint in Floor 4?????????
+	set lat2 15;	# force on each beam-column joint in Floor 2
+	set lat3 30;	# force on each beam-column joint in Floor 3
+	set lat4 40;	# force on each beam-column joint in Floor 4				
 	pattern Plain 200 Linear {			
 					load 1205 $lat2 0.0 0.0;
 					load 2205 $lat2 0.0 0.0;
 					load 1305 $lat3 0.0 0.0;
-					load 2305 $lat3 0.0 0.0;  #lat4???????
+					load 2305 $lat3 0.0 0.0;  
+					load 1405 $lat4 0.0 0.0;
+					load 2405 $lat4 0.0 0.0;
 	}
 	
 # display deformed shape:
@@ -611,7 +613,7 @@ if {$analysisType == "pushover"} {
 	DisplayModel2D DeformedShape $ViewScale ;	# display deformed shape, the scaling factor needs to be adjusted for each model
 
 # displacement parameters
-	set IDctrlNode 1305;				# node where disp is read for disp control
+	set IDctrlNode 1405;				# node where disp is read for disp control ///////// changed to 1305 to 1405
 	set IDctrlDOF 1;					# degree of freedom read for disp control (1 = x displacement)
 	set Dmax [expr 0.1*$HBuilding];		# maximum displacement of pushover: 10% roof drift
 	set Dincr [expr 0.01];				# displacement increment
