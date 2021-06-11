@@ -292,13 +292,14 @@
 	set n 10.0;		# stiffness multiplier for rotational spring
 
 	# calculate modified moment of inertia for elastic elements between plastic hinge springs
-	set Icol_12mod  [expr $Icol_12*($n+1.0)/$n];	# modified moment of inertia for columns in Story 1 & 2
-	set Ibeam_23mod [expr $Ibeam_23*($n+1.0)/$n];	# modified moment of inertia for beams in Floor 2 & 3
+	set Icol_12mod  [expr $Icol_12*($n+1.0)/$n];	# modified moment of inertia for columns in Story 1,2 & 3
+	set Ibeam_23mod [expr $Ibeam_23*($n+1.0)/$n];	# modified moment of inertia for beams in Floor 2,3 & 4
 	
 	# calculate modified rotational stiffness for plastic hinge springs: use length between springs
 	set Ks_col_1   [expr $n*6.0*$Es*$Icol_12mod/($HStory1-$phvert234)];		# rotational stiffness of Story 1 column springs
 	set Ks_col_2   [expr $n*6.0*$Es*$Icol_12mod/($HStoryTyp-2*$phvert234)];	# rotational stiffness of Story 2 column springs
-	set Ks_beam_23 [expr $n*6.0*$Es*$Ibeam_23mod/($WBay-2*$phlat234)];		# rotational stiffness of Floor 2 & 3 beam springs
+	set Ks_col_3   [expr $n*6.0*$Es*$Icol_12mod/($HStoryTyp-2*$phvert234)];	# rotational stiffness of Story 3 column springs
+	set Ks_beam_23 [expr $n*6.0*$Es*$Ibeam_23mod/($WBay-2*$phlat234)];		# rotational stiffness of Floor 2,3 & 4 beam springs
 	
 # set up geometric transformation of elements
 	set PDeltaTransf 1;
@@ -313,6 +314,9 @@
 	# Columns Story 2
 	element elasticBeamColumn  112  128 135 $Acol_12 $Es $Icol_12mod $PDeltaTransf;	# Pier 1
 	element elasticBeamColumn  122  228 235 $Acol_12 $Es $Icol_12mod $PDeltaTransf;	# Pier 2
+	# Columns Story 3
+	element elasticBeamColumn  113  138 145 $Acol_12 $Es $Icol_12mod $PDeltaTransf;	# Pier 1
+	element elasticBeamColumn  123  238 245 $Acol_12 $Es $Icol_12mod $PDeltaTransf;	# Pier 2
 	
 # define elastic beam elements
 	# element between plastic hinges: eleID convention = "2xy" where 2 = beam, x = Bay #, y = Floor #
@@ -326,7 +330,10 @@
 	element elasticBeamColumn  2131 1305 131  $Abeam_23 $Es $Ibeam_23    $PDeltaTransf;
 	element elasticBeamColumn  213  132  233  $Abeam_23 $Es $Ibeam_23mod $PDeltaTransf;
 	element elasticBeamColumn  2132 234  2310 $Abeam_23 $Es $Ibeam_23    $PDeltaTransf;
-	
+	# Beams Story 3
+	element elasticBeamColumn  2141 1405 141  $Abeam_23 $Es $Ibeam_23    $PDeltaTransf;
+	element elasticBeamColumn  214  142  243  $Abeam_23 $Es $Ibeam_23mod $PDeltaTransf;
+	element elasticBeamColumn  2142 244  2410 $Abeam_23 $Es $Ibeam_23    $PDeltaTransf;
 # define p-delta columns and rigid links
 	set TrussMatID 600;		# define a material ID
 	set Arigid 1000.0;		# define area of truss section (make much larger than A of frame elements)
@@ -337,11 +344,13 @@
 	# eleID convention:  6xy, 6 = truss link, x = Bay #, y = Floor #
 	element truss  622 2205 32 $Arigid $TrussMatID;	# Floor 2
 	element truss  623 2305 33 $Arigid $TrussMatID;	# Floor 3
+	element truss  624 2405 34 $Arigid $TrussMatID;	# Floor 4
 	
 	# p-delta columns
 	# eleID convention:  7xy, 7 = p-delta columns, x = Pier #, y = Story #
 	element elasticBeamColumn  731  31  326 $Arigid $Es $Irigid $PDeltaTransf;	# Story 1
 	element elasticBeamColumn  732  327 336 $Arigid $Es $Irigid $PDeltaTransf;	# Story 2
+	element elasticBeamColumn  733  337 346 $Arigid $Es $Irigid $PDeltaTransf;	# Story 3
 	
 # define elastic panel zone elements (assume rigid)
 	# elemPanelZone2D creates 8 elastic elements that form a rectangular panel zone
