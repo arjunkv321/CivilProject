@@ -92,6 +92,7 @@
 	node 31 $Pier3 $Floor1;
 	node 32 $Pier3 $Floor2;
 	node 33 $Pier3 $Floor3;
+	node 34 $Pier3 $Floor4;
 
 # define extra nodes for plastic hinge rotational springs
 	# nodeID convention:  "xya" where x = Pier #, y = Floor #, a = location relative to beam-column joint
@@ -118,6 +119,18 @@
 	node 235 $Pier2 [expr $Floor3 - $phvert234];
 	node 236 $Pier2 [expr $Floor3 - $phvert234];
 	node 336 $Pier3 $Floor3;	# zero-stiffness spring will be used on p-delta column
+	# column hinges at bottom of Story 3
+	node 137 $Pier1 [expr $Floor3 + $phvert234];
+	node 138 $Pier1 [expr $Floor3 + $phvert234];
+	node 237 $Pier2 [expr $Floor3 + $phvert234];
+	node 238 $Pier2 [expr $Floor3 + $phvert234];
+	node 337 $Pier3 $Floor3;	# zero-stiffness spring will be used on p-delta column
+	# column hinges at top of Story 2
+	node 145 $Pier1 [expr $Floor4 - $phvert234];
+	node 146 $Pier1 [expr $Floor4 - $phvert234];
+	node 245 $Pier2 [expr $Floor4 - $phvert234];
+	node 246 $Pier2 [expr $Floor4 - $phvert234];
+	node 346 $Pier3 $Floor4;	# zero-stiffness spring will be used on p-delta column
 
 	# beam hinges at Floor 2
 	node 121 [expr $Pier1 + $phlat234] $Floor2;
@@ -129,6 +142,11 @@
 	node 132 [expr $Pier1 + $phlat234] $Floor3;
 	node 233 [expr $Pier2 - $phlat234] $Floor3;
 	node 234 [expr $Pier2 - $phlat234] $Floor3;
+	# beam hinges at Floor 4
+	node 141 [expr $Pier1 + $phlat234] $Floor4;
+	node 142 [expr $Pier1 + $phlat234] $Floor4;
+	node 243 [expr $Pier2 - $phlat234] $Floor4;
+	node 244 [expr $Pier2 - $phlat234] $Floor4;
 	
 # define extra nodes for panel zones
 	# nodeID convention:  "xybc" where x = Pier #, y = Floor #, bc = location relative to beam-column joint
