@@ -365,6 +365,8 @@
 	elemPanelZone2D   500221 2201 $Es $Apz $Ipz $PDeltaTransf;	# Pier 2, Floor 2
 	elemPanelZone2D   500131 1301 $Es $Apz $Ipz $PDeltaTransf;	# Pier 1, Floor 3
 	elemPanelZone2D   500231 2301 $Es $Apz $Ipz $PDeltaTransf;	# Pier 2, Floor 3
+	elemPanelZone2D   500141 1401 $Es $Apz $Ipz $PDeltaTransf;	# Pier 1, Floor 4
+	elemPanelZone2D   500241 2401 $Es $Apz $Ipz $PDeltaTransf;	# Pier 2, Floor 4
 	
 # display the model with the node numbers
 	DisplayModel2D NodeNumbers;
@@ -419,9 +421,16 @@
 	rotSpring2DModIKModel 3122 136 135 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	rotSpring2DModIKModel 3222 236 235 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	
+	# col springs @ bottom of Story 3 (above Floor 3)
+	rotSpring2DModIKModel 3131 137 138 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3231 237 238 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	#col springs @ top of Story 3 (below Floor 4)
+	rotSpring2DModIKModel 3132 146 145 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 3232 246 245 $Ks_col_2 $b $b $Mycol_12 [expr -$Mycol_12] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	
 	# create region for frame column springs
 	# command: region $regionID -ele $ele_1_ID $ele_2_ID...
-	region 1 -ele 3111 3211 3112 3212 3121 3221 3122 3222;
+	region 1 -ele 3111 3211 3112 3212 3121 3221 3122 3222 3131 3231 3132 3232;
 	
 # define beam springs
 	# Spring ID: "4xya", where 4 = beam spring, x = Bay #, y = Floor #, a = location in bay
@@ -439,9 +448,12 @@
 	#beam springs at Floor 3
 	rotSpring2DModIKModel 4131 131 132 $Ks_beam_23 $b $b $Mybeam_23 [expr -$Mybeam_23] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	rotSpring2DModIKModel 4132 233 234 $Ks_beam_23 $b $b $Mybeam_23 [expr -$Mybeam_23] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	#beam springs at Floor 4
+	rotSpring2DModIKModel 4141 141 142 $Ks_beam_23 $b $b $Mybeam_23 [expr -$Mybeam_23] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
+	rotSpring2DModIKModel 4142 243 244 $Ks_beam_23 $b $b $Mybeam_23 [expr -$Mybeam_23] $LS $LK $LA $LD $cS $cK $cA $cD $th_pP $th_pN $th_pcP $th_pcN $ResP $ResN $th_uP $th_uN $DP $DN;
 	
 	# create region for beam springs
-	region 2 -ele 4121 4122 4131 4132;
+	region 2 -ele 4121 4122 4131 4132 4141 4142;
 	
 #define panel zone springs
 	# rotPanelZone2D creates a uniaxial material spring with a trilinear response based on the Krawinkler Model
@@ -459,6 +471,9 @@
 	#3rd Floor PZ springs
 	rotPanelZone2D 41300 1303 1304 $Es $Fy $dcol_12 $bfcol_12 $tfcol_12 $twcol_12 $dbeam_23 $Ry $as_PZ;
 	rotPanelZone2D 42300 2303 2304 $Es $Fy $dcol_12 $bfcol_12 $tfcol_12 $twcol_12 $dbeam_23 $Ry $as_PZ;
+	#4th Floor PZ springs
+	rotPanelZone2D 41400 1403 1404 $Es $Fy $dcol_12 $bfcol_12 $tfcol_12 $twcol_12 $dbeam_23 $Ry $as_PZ;
+	rotPanelZone2D 42400 2403 2404 $Es $Fy $dcol_12 $bfcol_12 $tfcol_12 $twcol_12 $dbeam_23 $Ry $as_PZ;
 	
 # define p-delta column spring: zero-stiffness elastic spring	
 	#Spring ID: "5xya" where 5 = leaning column spring, x = Pier #, y = Story #, a = location in story
@@ -467,9 +482,11 @@
 	rotLeaningCol 5312 32 326;	# top of Story 1
 	rotLeaningCol 5321 32 327;	# bottom of Story 2
 	rotLeaningCol 5322 33 336;	# top of Story 2
+	rotLeaningCol 5331 33 337;	# bottom of Story 3
+	rotLeaningCol 5332 34 346;	# top of Story 3
 	
 	# create region for P-Delta column springs
-	region 3 -ele 5312 5321 5322;
+	region 3 -ele 5312 5321 5322 5331 5332;
 	
 ############################################################################
 #                       Eigenvalue Analysis                    			   
