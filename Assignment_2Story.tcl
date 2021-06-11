@@ -545,10 +545,11 @@
 	# record drifts
 	recorder Drift -file $dataDir/Drift-Story1.out -time -iNode 11 -jNode 1205 -dof 1 -perpDirn 2;
 	recorder Drift -file $dataDir/Drift-Story2.out -time -iNode 1205 -jNode 1305 -dof 1 -perpDirn 2;
-	recorder Drift -file $dataDir/Drift-Roof.out -time -iNode 11 -jNode 1305 -dof 1 -perpDirn 2;
+	recorder Drift -file $dataDir/Drift-Story3.out -time -iNode 1305 -jNode 1405 -dof 1 -perpDirn 2; #need to check??????
+	recorder Drift -file $dataDir/Drift-Roof.out -time -iNode 11 -jNode 1405 -dof 1 -perpDirn 2; #changed from 1305
 	
 # record floor displacements	
-	recorder Node -file $dataDir/Disp.out -time -node 1205 1305 -dof 1 disp;
+	recorder Node -file $dataDir/Disp.out -time -node 1205 1405 -dof 1 disp; #changed from 1305
 	
 # record base shear reactions
 	recorder Node -file $dataDir/Vbase.out -time -node 117 217 31 -dof 1 reaction;
@@ -581,11 +582,12 @@ if {$analysisType == "pushover"} {
 # assign lateral loads and create load pattern:  use ASCE 7-10 distribution
 	set lat2 16.255;	# force on each beam-column joint in Floor 2
 	set lat3 31.636;	# force on each beam-column joint in Floor 3
+						# force on each beam-column joint in Floor 4?????????
 	pattern Plain 200 Linear {			
 					load 1205 $lat2 0.0 0.0;
 					load 2205 $lat2 0.0 0.0;
 					load 1305 $lat3 0.0 0.0;
-					load 2305 $lat3 0.0 0.0;
+					load 2305 $lat3 0.0 0.0;  #lat4???????
 	}
 	
 # display deformed shape:
