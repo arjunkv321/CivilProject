@@ -515,12 +515,16 @@
 		# command: load node Fx Fy Mz
 		set P_PD2 [expr -398.02];	# Floor 2
 		set P_PD3 [expr -391.31];	# Floor 3
+		set P_PD4 [expr -391.31];	# Floor 4
+		
 		load 32 0.0 $P_PD2 0.0;		# Floor 2
 		load 33 0.0 $P_PD3 0.0;		# Floor 3
+		load 34 0.0 $P_PD4 0.0;		# Floor 4
 		
 		# point loads on frame column nodes
 		set P_F2 [expr 0.5*(-1.0*$Floor2Weight-$P_PD2)];	# load on each frame node in Floor 2
 		set P_F3 [expr 0.5*(-1.0*$Floor3Weight-$P_PD3)];	# load on each frame node in Floor 3
+		set P_F4 [expr 0.5*(-1.0*$Floor4Weight-$P_PD4)];	# load on each frame node in Floor 4
 		
 		# Floor 2 loads
 		load 127 0.0 $P_F2 0.0;
@@ -528,6 +532,9 @@
 		# Floor 3 loads		
 		load 137 0.0 $P_F3 0.0;
 		load 237 0.0 $P_F3 0.0;
+		# Floor 4 loads		
+		load 147 0.0 $P_F4 0.0;
+		load 247 0.0 $P_F4 0.0;
 	}
 
 # Gravity-analysis: load-controlled static analysis
