@@ -51,7 +51,7 @@
 #          Define Building Geometry, Nodes, Masses, and Constraints											  
 ###################################################################################################
 # define structure-geometry parameters
-	set NStories 2;						# number of stories
+	set NStories 3;						# number of stories
 	set NBays 1;						# number of frame bays (excludes bay for P-delta column)
 	set WBay      [expr 30.0*12.0];		# bay width in inches
 	set HStory1   [expr 15.0*12.0];		# 1st story height in inches
