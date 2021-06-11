@@ -51,7 +51,7 @@
 #          Define Building Geometry, Nodes, Masses, and Constraints											  
 ###################################################################################################
 # define structure-geometry parameters
-	set NStories 2;						# number of stories
+	set NStories 3;						# number of stories
 	set NBays 1;						# number of frame bays (excludes bay for P-delta column)
 	set WBay      [expr 30.0*12.0];		# bay width in inches
 	set HStory1   [expr 15.0*12.0];		# 1st story height in inches
@@ -79,9 +79,11 @@
 	set g 386.2;				# acceleration due to gravity
 	set Floor2Weight 535.0;		# weight of Floor 2 in kips
 	set Floor3Weight 525.0;		# weight of Floor 3 in kips
+	set Floor4Weight 525.0;		# weight of Floor 4 in kips
 	set WBuilding  [expr $Floor2Weight + $Floor3Weight];# total building weight
 	set NodalMass2 [expr ($Floor2Weight/$g) / (2.0)];	# mass at each node on Floor 2
 	set NodalMass3 [expr ($Floor3Weight/$g) / (2.0)];	# mass at each node on Floor 3
+	set NodalMass4 [expr ($Floor4Weight/$g) / (2.0)];	# mass at each node on Floor 4
 	set Negligible 1e-9;	# a very small number to avoid problems with zero
 
 # define nodes and assign masses to beam-column intersections of frame
@@ -125,7 +127,7 @@
 	node 237 $Pier2 [expr $Floor3 + $phvert234];
 	node 238 $Pier2 [expr $Floor3 + $phvert234];
 	node 337 $Pier3 $Floor3;	# zero-stiffness spring will be used on p-delta column
-	# column hinges at top of Story 2
+	# column hinges at top of Story 3
 	node 145 $Pier1 [expr $Floor4 - $phvert234];
 	node 146 $Pier1 [expr $Floor4 - $phvert234];
 	node 245 $Pier2 [expr $Floor4 - $phvert234];
@@ -193,7 +195,6 @@
 	node 1308 [expr $Pier1 - $pzlat234 ] [expr $Floor3 - $phvert234];
 	node 1309 [expr $Pier1 - $pzlat234 ] [expr $Floor3 - $phvert234];
 	node 1310 [expr $Pier1 - $pzlat234 ] [expr $Floor3];
-	node 137  [expr $Pier1]  [expr $Floor3 + $phvert234]; # not previously defined since no column above
 	
 	# panel zone at Pier 2, Floor 3
 	node 2301 [expr $Pier2 - $pzlat234 ] [expr $Floor3 + $phvert234];
@@ -206,7 +207,32 @@
 	node 2308 [expr $Pier2 - $pzlat234 ] [expr $Floor3 - $phvert234];
 	node 2309 [expr $Pier2 - $pzlat234 ] [expr $Floor3 - $phvert234];
 	node 2310 [expr $Pier2 - $pzlat234 ] [expr $Floor3];
-	node 237  [expr $Pier2]  [expr $Floor3 + $phvert234]; # not previously defined since no column above
+	
+	# panel zone at Pier 1, Floor 4
+	node 1401 [expr $Pier1 - $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 1402 [expr $Pier1 - $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 1403 [expr $Pier1 + $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 1404 [expr $Pier1 + $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 1405 [expr $Pier1 + $pzlat234 ] [expr $Floor4];
+	node 1406 [expr $Pier1 + $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 1407 [expr $Pier1 + $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 1408 [expr $Pier1 - $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 1409 [expr $Pier1 - $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 1410 [expr $Pier1 - $pzlat234 ] [expr $Floor4];
+	node 147  [expr $Pier1]  [expr $Floor4 + $phvert234]; # not previously defined since no column above
+	
+	# panel zone at Pier 2, Floor 4
+	node 2401 [expr $Pier2 - $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 2402 [expr $Pier2 - $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 2403 [expr $Pier2 + $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 2404 [expr $Pier2 + $pzlat234 ] [expr $Floor4 + $phvert234];
+	node 2405 [expr $Pier2 + $pzlat234 ] [expr $Floor4];
+	node 2406 [expr $Pier2 + $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 2407 [expr $Pier2 + $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 2408 [expr $Pier2 - $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 2409 [expr $Pier2 - $pzlat234 ] [expr $Floor4 - $phvert234];
+	node 2410 [expr $Pier2 - $pzlat234 ] [expr $Floor4];
+	node 247  [expr $Pier2]  [expr $Floor4 + $phvert234]; # not previously defined since no column above
 	
 # define nodal masses:  lump at beam-column joints in frame
 	# command: mass $nodeID $dof1mass $dof2mass $dof3mass
