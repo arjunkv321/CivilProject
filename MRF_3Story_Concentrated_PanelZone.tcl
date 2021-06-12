@@ -80,7 +80,7 @@
 	set Floor2Weight 535.0;		# weight of Floor 2 in kips
 	set Floor3Weight 525.0;		# weight of Floor 3 in kips
 	set Floor4Weight 525.0;		# weight of Floor 4 in kips
-	set WBuilding  [expr $Floor2Weight + $Floor3Weight];# total building weight
+	set WBuilding  [expr $Floor2Weight + $Floor3Weight + $Floor4Weight];# total building weight
 	set NodalMass2 [expr ($Floor2Weight/$g) / (2.0)];	# mass at each node on Floor 2
 	set NodalMass3 [expr ($Floor3Weight/$g) / (2.0)];	# mass at each node on Floor 3
 	set NodalMass4 [expr ($Floor4Weight/$g) / (2.0)];	# mass at each node on Floor 4
