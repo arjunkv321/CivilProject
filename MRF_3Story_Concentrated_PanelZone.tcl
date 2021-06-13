@@ -286,8 +286,8 @@
 # determine stiffness modifications to equate the stiffness of the spring-elastic element-spring subassembly to the stiffness of the actual frame member
 	# References: (1) Ibarra, L. F., and Krawinkler, H. (2005). "Global collapse of frame structures under seismic excitations," Technical Report 152,
 	#             		The John A. Blume Earthquake Engineering Research Center, Department of Civil Engineering, Stanford University, Stanford, CA.
-	#			  (2) Zareian, F. and Medina, R. A. (2010). “A practical method for proper modeling of structural damping in inelastic plane
-	#					structural systems,” Computers & Structures, Vol. 88, 1-2, pp. 45-53.
+	#			  (2) Zareian, F. and Medina, R. A. (2010). ï¿½A practical method for proper modeling of structural damping in inelastic plane
+	#					structural systems,ï¿½ Computers & Structures, Vol. 88, 1-2, pp. 45-53.
 	# calculate modified section properties to account for spring stiffness being in series with the elastic element stiffness
 	set n 10.0;		# stiffness multiplier for rotational spring
 
@@ -649,8 +649,8 @@ if {$analysisType == "dynamic"} {
 		
 		# assign damping to frame beams and columns		
 		# command: region $regionID -eleRange $elementIDfirst $elementIDlast rayleigh $alpha_mass $alpha_currentStiff $alpha_initialStiff $alpha_committedStiff
-		region 4 -eleRange 111 213 rayleigh 0.0 0.0 $a1_mod 0.0;	# assign stiffness proportional damping to frame beams & columns w/ n modifications
-		region 5 -eleRange 2121 2132 rayleigh 0.0 0.0 $a1 0.0;		# assign stiffness proportional damping to frame beams & columns w/out n modifications
+		region 4 -eleRange 111 214 rayleigh 0.0 0.0 $a1_mod 0.0;	# assign stiffness proportional damping to frame beams & columns w/ n modifications
+		region 5 -eleRange 2121 2142 rayleigh 0.0 0.0 $a1 0.0;		# assign stiffness proportional damping to frame beams & columns w/out n modifications
 		#region 6 -eleRange 500000 599999 rayleigh 0.0 0.0 $a1 0.0;	# assign stiffness proportional damping to panel zone elements
 		rayleigh $a0 0.0 0.0 0.0;              						# assign mass proportional damping to structure (only assigns to nodes with mass)
 		
